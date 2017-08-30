@@ -44,4 +44,5 @@ This codebase was written to cover the following user story;
 > IN ORDER to understand the profile of establishments in that authority.
 
 When the app loads, a request is made to load all the local authorities. From there, you can click
-and search in the top dropdown for a local authority. Once that is done
+and search in the top dropdown for a local authority. Once that is done, the relevant profile data
+will be requested from the API and displayed in the table.
