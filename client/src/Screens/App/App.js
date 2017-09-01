@@ -30,6 +30,9 @@ class App extends Component {
                 Authorization: 'TOKEN-HERE'
             }
         }, (error, response, body) => {
+			if (body == null) {
+				return false;
+			}
             let data = JSON.parse(body);
             this.setState({ select_options: data.payload.localAuthorities });
         });

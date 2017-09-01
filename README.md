@@ -1,11 +1,23 @@
 # Example Codebase for a Tech Test - Food Standards Agency API Integration
 
-This codebase was originally written to server as a tech test for a client, to show I know my way
+This codebase was originally written to serve as a tech test for a client, to show I know my way
 around PHP and React.js. Now, it's here for everyone to enjoy!
+
+# Original Requirements and Features
+
+This codebase was written to cover the following user story;
+
+> AS A user
+> I WANT to see how food hygiene ratings are distributed by percentage across a selected Local Authority
+> IN ORDER to understand the profile of establishments in that authority.
+
+When the app loads, a request is made to load all the local authorities. From there, you can click
+and search in the top dropdown for a local authority. Once that is done, the relevant profile data
+will be requested from the API and displayed in the table.
 
 ## What?
 
-This git repo covers multiple codebases, so it's a little different from normal.
+This git repo covers multiple discrete codebases, so it's a little different from normal.
 
 `server` is a PHP, SLIM3 API that talks to the [Food Standards Agency](http://api.ratings.food.gov.uk/help) API and acts as a "middleman" to
 parse the responses into something more directly usable via a frontend.
@@ -34,15 +46,3 @@ You can alter the values in `.env` to alter FSA API details, and to alter the nu
 
 The app was written to point its requests to http://192.168.33.10. If you change the IP address of the API,
 remember to change where the client points to!
-
-# Original Requirements and Features
-
-This codebase was written to cover the following user story;
-
-> AS A user
-> I WANT to see how food hygiene ratings are distributed by percentage across a selected Local Authority
-> IN ORDER to understand the profile of establishments in that authority.
-
-When the app loads, a request is made to load all the local authorities. From there, you can click
-and search in the top dropdown for a local authority. Once that is done, the relevant profile data
-will be requested from the API and displayed in the table.
