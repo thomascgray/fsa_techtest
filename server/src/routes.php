@@ -27,6 +27,10 @@ $app->group('/v1', function () use ($app, $cacheTime) {
         ->add(new AuthLayer())
         ->add(new CacheLayer($cacheTime));
 
+    $app->post('/establishments-search', FSAController::class . ":fetchEstablishments")
+        ->add(new AuthLayer());
+        // ->add(new CacheLayer($cacheTime));
+
 });
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {

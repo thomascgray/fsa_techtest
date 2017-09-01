@@ -12,7 +12,7 @@ class AuthLayer
     public function __invoke($req, $res, $next)
     {
         $authToken = $req->getHeader('Authorization')[0];
-        if ($authToken !== 'TOKEN-HERE') {
+        if ($authToken != 'TOKEN-HERE') {
             return $res->withJson([
                 'error' => 'Incorrect authorization token!'
             ], 403);
