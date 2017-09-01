@@ -5,36 +5,44 @@ class Establishments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : null,
-            address : null,
+            name : '',
+            address : '',
         }
     }
 
     handleFormInput(k, v) {
-        this.setState({
-            [k] : v
+        return new Promise((resolve) => {
+            this.setState({
+                [k] : v
+            }, resolve(v));
         });
+    }
+
+    updateSearchCriteria() {
+        // @TODO make a request here
     }
 
     render() {
         return (
             <main>
-                <div class={"form-input"}>
+                <div className={"form-input"}>
                     <label>
                     <input
                         value={this.state.name}
                         onChange={(e) => {
                             this.handleFormInput('name', e.target.value)
+                            .then(this.updateSearchCriteria.bind(this))
                         }}
                     />
                     </label>
                 </div>
-                <div class={"form-input"}>
+                <div className={"form-input"}>
                     <label>
                     <input
                         value={this.state.address}
                         onChange={(e) => {
                             this.handleFormInput('address', e.target.value)
+                            .then(this.updateSearchCriteria.bind(this))
                         }}
                     />
                     </label>
