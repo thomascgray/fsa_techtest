@@ -1,46 +1,44 @@
 import React, { Component } from 'react';
+import Promise from "bluebird";
 
 class Establishments extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             name : null,
             address : null,
         }
     }
 
-    updateSearchCriteria() {
-        
+    handleFormInput(k, v) {
+        this.setState({
+            [k] : v
+        });
     }
 
     render() {
         return (
             <main>
-                <section>
+                <div class={"form-input"}>
                     <label>
-                        Establishment Name
-                        <input
-                        onChange={(e) => {
-                            this.setState({name : e.target.value}, () => {
-                                this.updateSearchCriteria();
-                            });
-                        }}
+                    <input
                         value={this.state.name}
-                        />
-                    </label>
-                    <label>
-                        Establishment Address
-                        <input
                         onChange={(e) => {
-                            this.setState({address : e.target.value}, () => {
-                                this.updateSearchCriteria();
-                            });
+                            this.handleFormInput('name', e.target.value)
                         }}
-                        value={this.state.address}
-                        />
+                    />
                     </label>
-                </section>
+                </div>
+                <div class={"form-input"}>
+                    <label>
+                    <input
+                        value={this.state.address}
+                        onChange={(e) => {
+                            this.handleFormInput('address', e.target.value)
+                        }}
+                    />
+                    </label>
+                </div>
                 <h1>WIP - this page will let you search for establishments when ompleted</h1>
             </main>
         );
