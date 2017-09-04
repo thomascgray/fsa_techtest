@@ -7,9 +7,9 @@ around PHP and React.js. Now, it's here for everyone to enjoy!
 
 This codebase was written to cover the following user story;
 
-> AS A user
-> I WANT to see how food hygiene ratings are distributed by percentage across a selected Local Authority
-> IN ORDER to understand the profile of establishments in that authority.
+> AS AN end user
+> I WANT to see a breakdown of the hygiene rating of all establishments, distributed by percentage, for a given local authority
+> IN ORDER to get a clear overview of the "profile" of all the establishments of that local authority
 
 When the app loads, a request is made to load all the local authorities. From there, you can click
 and search in the top dropdown for a local authority. Once that is done, the relevant profile data
