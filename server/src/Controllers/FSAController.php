@@ -3,6 +3,7 @@
 namespace FsaTechTest\Controllers;
 
 use GuzzleHttp\Client;
+use FsaTechTest\Models\FsaModel as FsaModel;
 
 /**
  * an example controller to process requests
@@ -38,20 +39,11 @@ class FSAController
     {
         $upstreamResponse = $this->fsaClient->get('Authorities/basic');
 
-        $localAuthorities = [];
-
-        $data = json_decode($upstreamResponse->getBody()->getContents(), true);
-
-        foreach ($data['authorities'] as $authority) {
-            $localAuthorities[] = [
-                'value' => $authority['LocalAuthorityId'],
-                'label' => $authority['Name'],
-            ];
-        }
+        $model = new FsaModel();
 
         return $res->withJson([
             'payload' => [
-                'localAuthorities' => $localAuthorities
+                'localAuthorities' => $model->parseProfile($upstreamResponse->getBody()->getContents()),
             ]
         ], 200);
     }
@@ -72,42 +64,14 @@ class FSAController
 
         $establishmentResponse = $this->fsaClient->get("Establishments?localAuthorityId={$id}&pageSize=0");
 
-        $data = json_decode($establishmentResponse->getBody()->getContents(), true);
+        $model = new FsaModel();
 
-        $totalEstablishMents = 0;
-        $ratings = [];
-
-        // first pass parses the raw FSA API data into something
-        // workable
-        foreach ($data['establishments'] as $establishment) {
-            $establishmentRating = $establishment['RatingValue'];
-            if (empty($ratings[$establishmentRating]['count'])) {
-                $ratings[$establishmentRating]['count'] = 0;
-            }
-            $ratings[$establishmentRating]['count'] = $ratings[$establishmentRating]['count'] + 1;
-            $totalEstablishMents++;
-        }
-
-        // second pass adds up some percentages
-        foreach ($ratings as $key => $ratingData) {
-            $ratings[$key]['percentage'] = number_format(($ratingData['count'] / $totalEstablishMents) * 100);
-        }
-
-        // final pass parses our final calculations into something easy
-        // for the SPA to display
-        $finalTableData = [];
-        foreach ($ratings as $key => $ratingData) {
-            $finalTableData[] = [
-                'rating' => $key,
-                'count' => number_format($ratingData['count']),
-                'percentage' => $ratingData['percentage'] . '%',
-            ];
-        }
+        $output = $model->parseProfile($establishmentResponse->getBody()->getContents());
 
         return $res->withJson([
             'payload' => [
-                'total' => $totalEstablishMents,
-                'tableData' => $finalTableData,
+                'total' => $output['totalEstablishMents'],
+                'tableData' => $output['finalTableData'],
             ]
         ]);
     }
