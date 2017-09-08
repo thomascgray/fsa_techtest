@@ -75,4 +75,33 @@ class FSAController
             ]
         ]);
     }
+
+    public function fetchEstablishments($req, $res, $args)
+    {
+        $data = $req->getParsedBody();
+        $name = $data['name'];
+        $address = urlencode($data['address']);
+
+        $clientResponse = $this->fsaClient->get("Establishments?name={$name}&address={$address}&pageSize=0");
+
+        $clientData = json_decode($clientResponse->getBody()->getContents(), true);
+
+        $results = [];
+
+        foreach ($clientData['establishments'] as $establishment) {
+            $results[] = [
+                'name' => $establishment['BusinessName'],
+                'type' => $establishment['BusinessType'],
+                'address' => join([$establishment['AddressLine1'], $establishment['AddressLine2'], $establishment['AddressLine3'], $establishment['AddressLine4'], $establishment['PostCode']], ', '),
+                'rating' => $establishment['RatingValue'],
+                'rating_date' => $establishment['RatingDate']
+            ];
+        }
+
+        return $res->withJson([
+            'payload' => [
+                'establishments' => $results,
+            ]
+        ]);
+    }
 }
