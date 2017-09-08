@@ -57,4 +57,23 @@ class FsaModel
             'tableData' => $tableData,
         ];
     }
+
+    public function parseEstablishmentSearchResults($rawClientData)
+    {
+        $clientData = json_decode($rawClientData, true);
+
+        $results = [];
+
+        foreach ($clientData['establishments'] as $establishment) {
+            $results[] = [
+                'name' => $establishment['BusinessName'],
+                'type' => $establishment['BusinessType'],
+                'address' => join([$establishment['AddressLine1'], $establishment['AddressLine2'], $establishment['AddressLine3'], $establishment['AddressLine4'], $establishment['PostCode']], ', '),
+                'rating' => $establishment['RatingValue'],
+                'rating_date' => $establishment['RatingDate']
+            ];
+        }
+
+        return $results;
+    }
 }
