@@ -20,12 +20,12 @@ $app->group('/v1', function () use ($app, $cacheTime) {
     });
 
     $app->get('/local-authorities', FSAController::class . ":listLocalAuthorities")
-        ->add(new AuthLayer())
-        ->add(new CacheLayer($cacheTime));
+        ->add(new AuthLayer());
+        // ->add(new CacheLayer($cacheTime));
 
     $app->get('/establishments-profile/{localAuthorityId:[0-9]+}', FSAController::class . ":getEstablishmentsProfilePerLocalAuthority")
-        ->add(new AuthLayer())
-        ->add(new CacheLayer($cacheTime));
+        ->add(new AuthLayer());
+        // ->add(new CacheLayer($cacheTime));
 
     $app->post('/establishments-search', FSAController::class . ":fetchEstablishments")
         ->add(new AuthLayer());

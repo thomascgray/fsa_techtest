@@ -14,7 +14,7 @@ class AuthLayer
         $authToken = $req->getHeader('Authorization')[0];
         if ($authToken != 'TOKEN-HERE') {
             return $res->withJson([
-                'error' => 'Incorrect authorization token!'
+                'error' => 'Incorrect authorization token! Please send an Authorization header of "TOKEN-HERE"!'
             ], 403);
         }
 

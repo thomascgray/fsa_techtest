@@ -43,7 +43,7 @@ class FSAController
 
         return $res->withJson([
             'payload' => [
-                'localAuthorities' => $model->parseProfile($upstreamResponse->getBody()->getContents()),
+                'localAuthorities' => $model->parseLocalAuthorities($upstreamResponse->getBody()->getContents()),
             ]
         ], 200);
     }
@@ -71,7 +71,7 @@ class FSAController
         return $res->withJson([
             'payload' => [
                 'total' => $output['totalEstablishMents'],
-                'tableData' => $output['finalTableData'],
+                'tableData' => $output['tableData'],
             ]
         ]);
     }

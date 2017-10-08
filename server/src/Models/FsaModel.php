@@ -43,9 +43,9 @@ class FsaModel
 
         // final pass parses our final calculations into something easy
         // for the SPA to display
-        $finalTableData = [];
+        $tableData = [];
         foreach ($ratings as $key => $ratingData) {
-            $finalTableData[] = [
+            $tableData[] = [
                 'rating' => $key,
                 'count' => number_format($ratingData['count']),
                 'percentage' => $ratingData['percentage'] . '%',
